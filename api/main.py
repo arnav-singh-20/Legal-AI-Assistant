@@ -13,7 +13,9 @@ from typing import Optional
 import sys
 import os
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR)
+
 from model.model_utils import LawgorithmPredictor
 
 app = FastAPI(
@@ -34,9 +36,13 @@ predictor = None
 @app.on_event("startup")
 async def load_model():
     global predictor
-    print("Loading Lawgorithm BERT model...")
-    predictor = LawgorithmPredictor()
-    print("Model ready!")
+    try:
+        print("Loading Lawgorithm BERT model...")
+        predictor = LawgorithmPredictor()
+        print("Model ready!")
+    except Exception as e:
+        print(f"Model loading failed: {e}")
+        predictor = None
 
 class QueryRequest(BaseModel):
     query: str
@@ -100,6 +106,9 @@ def predict_batch(queries: list[str]):
     """Classify multiple queries at once"""
     if len(queries) > 10:
         raise HTTPException(status_code=400, detail="Max 10 queries per batch")
+
+    if predictor is None:
+        raise HTTPException(status_code=503, detail="Model not loaded yet")
 
     results = [predictor.predict(q) for q in queries]
     return {"results": results, "count": len(results)}
