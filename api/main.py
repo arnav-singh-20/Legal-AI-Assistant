@@ -1,11 +1,3 @@
-"""
-Lawgorithm API — FastAPI backend
-Endpoints:
-  POST /predict  — classify a legal query
-  GET  /health   — health check
-  GET  /         — API info
-"""
-
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -19,7 +11,7 @@ sys.path.append(BASE_DIR)
 from model.model_utils import LawgorithmPredictor
 
 app = FastAPI(
-    title="Lawgorithm API",
+    title="Legal AI Assistant API",
     description="Legal Query Classification using BERT — classifies Indian legal queries by domain and intent",
     version="1.0.0"
 )
@@ -37,7 +29,6 @@ predictor = None
 async def load_model():
     global predictor
     try:
-        print("Loading Lawgorithm BERT model...")
         predictor = LawgorithmPredictor()
         print("Model ready!")
     except Exception as e:
@@ -68,7 +59,7 @@ class PredictionResponse(BaseModel):
 @app.get("/")
 def root():
     return {
-        "name":        "Lawgorithm",
+        "name":        "Legal AI Assistant",
         "description": "Legal Query Classification API for Indian Legal System",
         "version":     "1.0.0",
         "endpoints": {
