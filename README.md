@@ -123,8 +123,15 @@ curl -X POST "http://localhost:8000/predict" \
 - **Batch size**: 16
 - **Epochs**: 5
 
-## Interview Talking Points
-1. **Why BERT over LSTM?** — BERT captures bidirectional context, crucial for legal text where sentence structure matters
-2. **Multi-task learning** — Single model with shared BERT backbone and two separate heads is more efficient than two separate models
-3. **Real-time inference** — FastAPI serves predictions in <100ms on CPU
-4. **Indian legal focus** — Dataset built around IPC sections, Indian courts, and Indian legal procedures
+## Model
+Due to size limitations, trained model is not included.
+
+You can:
+- Train using: `python3 train.py`
+
+## Author
+
+**Arnav Singh**  
+ML Engineering | Production ML Systems | MLOps  
+[LinkedIn](https://linkedin.com/in/your-profile) · [Kaggle](https://kaggle.com/singharnav18)
+
