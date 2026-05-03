@@ -1,4 +1,4 @@
-# ⚖️ Lawgorithm — Legal Query Classification
+# ⚖️ Legal AI Assistant
 
 > AI-powered legal query classifier for the Indian Legal System using BERT
 
